@@ -714,13 +714,13 @@ document.getElementById('checkoutBtn').addEventListener('click', () => {
     alert("Sua sacola está vazia. Adicione algum item antes de finalizar.");
     return;
   }
-  let msg = "🛍️ Oii Ya! Gostaria de fazer o seguinte pedido:\n\n";
+  let msg = "Olá! Gostaria de fazer o seguinte pedido:\n\n";
   let total = 0;
   cart.forEach(it => {
     const p = findProduct(it.cat, it.productId);
     const subtotal = p.price * it.qty;
     total += subtotal;
-    msg += `👉 ${p.name} — Tam: ${it.size} — Qtd: ${it.qty} — ${fmtPrice(subtotal)}\n`;
+    msg += `• ${p.name} — Tam: ${it.size} — Qtd: ${it.qty} — ${fmtPrice(subtotal)}\n`;
   });
   msg += `\nTotal: ${fmtPrice(total)}`;
 
