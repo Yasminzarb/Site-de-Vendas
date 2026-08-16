@@ -709,10 +709,10 @@ overlay.addEventListener('click', closeDrawerFn);
 /* ============ CHECKOUT (WHATSAPP) ============ */
 document.getElementById('checkoutBtn').addEventListener('click', () => {
   if(cart.length === 0){
-    alert("Sua sacola está vazia. Adicione algum item antes de finalizar.");
+    alert("Sua sacola ainda está vazia😞🛍️. Adicione algum item antes de finalizar.");
     return;
   }
-  let msg = "Olá! Gostaria de fazer o seguinte pedido:\n\n";
+  let msg = "Oii Ya! Gostaria de fazer o seguinte pedido🛍️:\n\n";
   let total = 0;
   cart.forEach(it => {
     const p = findProduct(it.cat, it.productId);
