@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ya Boutique — Catálogo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap');
+
+:root{
+–bg: #1a0e10;
+–bg-soft: #24141a;
+–card: #2e161e;
+–plum: #4a1420;
+–rose: #8c2f3d;
+–rose-bright: #d4a24c;
+–gold: #d4a24c;
+–text: #f3e9e3;
+–text-dim: #c7a9a6;
+–line: rgba(212,162,76,0.25);
+}
+
+*{ box-sizing: border-box; margin:0; padding:0; }
+
+body{
+background: var(–bg);
+color: var(–text);
+font-family: ‘Jost’, sans-serif;
+font-weight: 300;
+min-height: 100vh;
+}
+
+/* subtle texture */
+body::before{
+content:””;
+position: fixed; inset:0;
+background:
+radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,123,147,0.15), transparent),
+radial-gradient(ellipse 60% 40% at 90% 100%, rgba(203,168,106,0.08), transparent);
+pointer-events:none;
+z-index:0;
+}
+
+h1,h2,h3, .display{
+font-family: ‘Cormorant Garamond’, serif;
+font-weight: 500;
+letter-spacing: 0.01em;
+}
+
+a { color: inherit; }
+
+/* HEADER */
+header{
+position: relative;
+z-index:1;
+text-align:center;
+padding: 4rem 1.5rem 2.5rem;
+border-bottom: 1px solid var(–line);
+}
+.eyebrow{
+font-size: 0.72rem;
+letter-spacing: 0.35em;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 1rem;
+}
+header h1{
+font-size: clamp(2.4rem, 6vw, 3.6rem);
+font-style: italic;
+color: var(–rose-bright);
+line-height: 1.1;
+}
+header p{
+color: var(–text-dim);
+margin-top: 0.8rem;
+font-size: 0.95rem;
+letter-spacing: 0.03em;
+}
+
+/* NAV TABS */
+nav.tabs{
+position: sticky;
+top:0;
+z-index: 50;
+background: rgba(26,16,21,0.92);
+backdrop-filter: blur(10px);
+border-bottom: 1px solid var(–line);
+display:flex;
+justify-content:center;
+gap: clamp(0.5rem, 4vw, 2.5rem);
+padding: 0 1rem;
+}
+nav.tabs button{
+background:none;
+border:none;
+color: var(–text-dim);
+font-family: ‘Jost’, sans-serif;
+font-size: clamp(0.72rem, 2vw, 0.85rem);
+letter-spacing: 0.15em;
+text-transform: uppercase;
+padding: 1.1rem 0.2rem;
+cursor:pointer;
+position: relative;
+transition: color 0.25s ease;
+white-space: nowrap;
+}
+nav.tabs button::after{
+content:””;
+position:absolute;
+left:0; right:0; bottom:0;
+height:2px;
+background: var(–rose-bright);
+transform: scaleX(0);
+transition: transform 0.3s ease;
+}
+nav.tabs button.active{ color: var(–rose-bright); }
+nav.tabs button.active::after{ transform: scaleX(1); }
+nav.tabs button:hover{ color: var(–text); }
+
+/* MAIN */
+main{
+position:relative; z-index:1;
+max-width: 1200px;
+margin: 0 auto;
+padding: 3rem 1.5rem 6rem;
+}
+
+.section-intro{
+text-align:center;
+margin-bottom: 2.8rem;
+}
+.section-intro h2{
+font-size: clamp(1.8rem, 4vw, 2.4rem);
+color: var(–gold);
+font-style: italic;
+}
+.section-intro p{
+color: var(–text-dim);
+font-size: 0.9rem;
+margin-top: 0.5rem;
+}
+
+.grid{
+display:grid;
+grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+gap: 1.6rem;
+}
+
+.card{
+background: linear-gradient(160deg, var(–card), var(–bg-soft));
+border: 1px solid var(–line);
+border-radius: 2px;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.card:hover{
+transform: translateY(-4px);
+border-color: var(–rose);
+}
+
+.card .img-wrap{
+aspect-ratio: 4/5;
+overflow:hidden;
+background: var(–plum);
+position:relative;
+}
+.card .img-wrap img{
+width:100%; height:100%;
+object-fit: cover;
+display:block;
+transition: transform 0.5s ease;
+}
+.card:hover .img-wrap img{ transform: scale(1.06); }
+
+.card .badge{
+position:absolute;
+top:0.7rem; left:0.7rem;
+background: rgba(26,16,21,0.75);
+color: var(–gold);
+font-size: 0.65rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+padding: 0.3rem 0.6rem;
+border: 1px solid var(–line);
+}
+
+.card .info{
+padding: 1.1rem 1.2rem 1.3rem;
+display:flex;
+flex-direction:column;
+gap:0.6rem;
+flex:1;
+}
+.card h3{
+font-size: 1.25rem;
+color: var(–text);
+font-weight:500;
+}
+.card .desc{
+font-size: 0.8rem;
+color: var(–text-dim);
+line-height:1.4;
+flex:1;
+}
+.card .price{
+font-family:‘Cormorant Garamond’, serif;
+font-size: 1.4rem;
+color: var(–rose-bright);
+font-style: italic;
+}
+
+.size-row{
+display:flex;
+flex-wrap: wrap;
+gap: 0.4rem;
+margin-top: 0.2rem;
+}
+.size-row label{
+position:relative;
+}
+.size-row input{
+position:absolute;
+opacity:0;
+pointer-events:none;
+}
+.size-row span{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-width: 2.4rem;
+padding: 0.35rem 0.5rem;
+border: 1px solid var(–line);
+font-size: 0.75rem;
+letter-spacing: 0.05em;
+color: var(–text-dim);
+cursor:pointer;
+transition: all 0.2s ease;
+}
+.size-row input:checked + span{
+background: var(–rose);
+border-color: var(–rose);
+color: var(–bg);
+}
+
+.qty-row{
+display:flex;
+align-items:center;
+gap:0.7rem;
+margin-top:0.2rem;
+}
+.qty-row button{
+width: 1.8rem; height:1.8rem;
+background:none;
+border: 1px solid var(–line);
+color: var(–text);
+font-size: 1rem;
+cursor:pointer;
+transition: border-color 0.2s ease;
+}
+.qty-row button:hover{ border-color: var(–rose); }
+.qty-row span.qty-val{
+min-width: 1.2rem;
+text-align:center;
+font-size: 0.9rem;
+}
+
+.add-btn{
+margin-top: 0.5rem;
+background: transparent;
+border: 1px solid var(–gold);
+color: var(–gold);
+padding: 0.65rem;
+font-family:‘Jost’, sans-serif;
+font-size: 0.75rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+cursor:pointer;
+transition: all 0.25s ease;
+}
+.add-btn:hover{
+background: var(–gold);
+color: var(–bg);
+}
+.add-btn.added{
+background: #a8465a;
+border-color: #a8465a;
+color: var(–text);
+}
+
+/* CART BUTTON FLOATING */
+.cart-fab{
+position: fixed;
+bottom: 1.6rem;
+right: 1.6rem;
+z-index: 60;
+background: linear-gradient(135deg, var(–rose-bright), #b5822f);
+color: var(–bg);
+border: none;
+border-radius: 50px;
+padding: 0.9rem 1.4rem;
+font-family:‘Jost’, sans-serif;
+font-size: 0.85rem;
+letter-spacing: 0.05em;
+display:flex;
+align-items:center;
+gap: 0.5rem;
+cursor:pointer;
+box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+transition: transform 0.2s ease;
+}
+.cart-fab:hover{ transform: translateY(-2px) scale(1.03); }
+.cart-count{
+background: var(–bg);
+color: var(–rose-bright);
+border-radius:50%;
+width: 1.4rem; height:1.4rem;
+display:flex; align-items:center; justify-content:center;
+font-size: 0.75rem;
+}
+
+/* CART DRAWER */
+.overlay{
+position:fixed; inset:0;
+background: rgba(0,0,0,0.55);
+z-index: 70;
+opacity:0;
+pointer-events:none;
+transition: opacity 0.3s ease;
+}
+.overlay.open{ opacity:1; pointer-events:all; }
+
+.drawer{
+position:fixed;
+top:0; right:0;
+height:100%;
+width: min(420px, 92vw);
+background: var(–bg-soft);
+border-left: 1px solid var(–line);
+z-index: 80;
+transform: translateX(100%);
+transition: transform 0.35s ease;
+display:flex;
+flex-direction:column;
+}
+.drawer.open{ transform: translateX(0); }
+
+.drawer-head{
+padding: 1.5rem;
+border-bottom: 1px solid var(–line);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.drawer-head h2{
+font-style: italic;
+color: var(–rose-bright);
+font-size: 1.6rem;
+}
+.drawer-head button{
+background:none; border:none;
+color: var(–text-dim);
+font-size: 1.4rem;
+cursor:pointer;
+}
+
+.drawer-items{
+flex:1;
+overflow-y:auto;
+padding: 1rem 1.5rem;
+display:flex;
+flex-direction:column;
+gap: 1rem;
+}
+.drawer-item{
+display:flex;
+gap: 0.9rem;
+border-bottom: 1px solid var(–line);
+padding-bottom: 1rem;
+}
+.drawer-item img{
+width: 64px; height:80px;
+object-fit:cover;
+flex-shrink:0;
+}
+.drawer-item .di-info{ flex:1; }
+.drawer-item h4{ font-size: 1rem; font-weight:500; }
+.drawer-item .di-meta{ font-size: 0.78rem; color: var(–text-dim); margin-top:0.2rem;}
+.drawer-item .di-price{ color: var(–rose-bright); font-family:‘Cormorant Garamond’,serif; font-style:italic; margin-top:0.3rem; }
+.drawer-item .remove{
+background:none; border:none;
+color: var(–text-dim);
+font-size: 0.75rem;
+text-decoration: underline;
+cursor:pointer;
+margin-top: 0.4rem;
+}
+.drawer-item .remove:hover{ color: var(–rose-bright); }
+
+.empty-cart{
+text-align:center;
+color: var(–text-dim);
+font-size: 0.9rem;
+padding: 3rem 1rem;
+}
+
+.drawer-foot{
+padding: 1.3rem 1.5rem 1.6rem;
+border-top: 1px solid var(–line);
+}
+.total-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom: 1rem;
+font-size: 1.1rem;
+}
+.total-row .amt{
+font-family:‘Cormorant Garamond’, serif;
+font-style:italic;
+color: var(–rose-bright);
+font-size: 1.6rem;
+}
+.checkout-btn{
+width:100%;
+background: var(–rose-bright);
+border:none;
+color: var(–bg);
+padding: 0.9rem;
+font-family:‘Jost’, sans-serif;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+font-size: 0.8rem;
+cursor:pointer;
+transition: opacity 0.2s ease;
+}
+.checkout-btn:hover{ opacity:0.88; }
+.checkout-hint{
+text-align:center;
+font-size: 0.72rem;
+color: var(–text-dim);
+margin-top:0.7rem;
+}
+
+footer{
+text-align:center;
+padding: 2.5rem 1rem;
+color: var(–text-dim);
+font-size: 0.78rem;
+border-top: 1px solid var(–line);
+position:relative; z-index:1;
+}
+footer .gold{ color: var(–gold); }
+
+@media (max-width: 480px){
+.grid{ grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 1rem; }
+.card .info{ padding: 0.85rem 0.9rem 1rem; }
+.card h3{ font-size: 1.05rem; }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Catálogo Digital</div>
+  <h1>Ya Boutique</h1>
+  <p>Lingerie · Bolsas · Sex Shop</p>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="active" data-cat="lingerie">Lingerie</button>
+  <button data-cat="bolsas">Bolsas</button>
+  <button data-cat="sexshop">Sex Shop</button>
+</nav>
+
+<main>
+  <div class="section-intro" id="section-intro"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<button class="cart-fab" id="cartFab">
+  🛍️ Carrinho <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h2>Sua sacola</h2>
+    <button id="closeDrawer">✕</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot">
+    <div class="total-row">
+      <span>Total</span>
+      <span class="amt" id="totalAmt">R$ 0,00</span>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn">Finalizar pelo WhatsApp</button>
+    <div class="checkout-hint">Você vai revisar e enviar o pedido direto no WhatsApp</div>
+  </div>
+</div>
+
+<footer>
+  Feito com carinho <span class="gold">✦</span> Ya Boutique — Pedidos combinados diretamente com a loja
+</footer>
+
+<script>
+/* ============ CONFIG ============ */
+const WHATSAPP_NUMBER = "5511944600109";
+
+/* ============ PRODUTOS ============ */
+const PRODUCTS = {
+  lingerie: [
+    { id:"lg1", name:"Conjunto Renda Noir", desc:"Sutiã e calcinha em renda francesa, forração leve, fecho traseiro ajustável.", price:129.90, img:"https://images.unsplash.com/photo-1595341888016-a392ef81b7de?q=80&w=800&auto=format&fit=crop", sizes:["P","M","G","GG"], badge:"Mais vendido" },
+    { id:"lg2", name:"Body Trato Rosê", desc:"Body decotado em micro tule com detalhes de fita de cetim.", price:139.90, img:"https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?q=80&w=800&auto=format&fit=crop", sizes:["P","M","G"] },
+    { id:"lg3", name:"Conjunto Bordado Vinho", desc:"Peça em renda bordada com forro de algodão, alças reguláveis.", price:149.90, img:"https://images.unsplash.com/photo-1571908599407-cdb918ed83bf?q=80&w=800&auto=format&fit=crop", sizes:["P","M","G","GG"] },
+    { id:"lg4", name:"Camisola Seda Blush", desc:"Camisola curta em cetim fluido com acabamento em renda no busto.", price:99.90, img:"https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=800&auto=format&fit=crop", sizes:["Único","P/M","G/GG"] },
+    { id:"lg5", name:"Conjunto Preto Clássico", desc:"Sutiã de bojo com calcinha fio, tecido macio e respirável.", price:89.90, img:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=800&auto=format&fit=crop", sizes:["P","M","G","GG","G3"] },
+    { id:"lg6", name:"Body Transparência Nude", desc:"Body em tule transparente com bojo removível.", price:119.90, img:"https://images.unsplash.com/photo-1519991181773-42a2fee29179?q=80&w=800&auto=format&fit=crop", sizes:["P","M","G"] }
+  ],
+  bolsas: [
+    { id:"bl1", name:"Bolsa Tote Couro Caramelo", desc:"Estrutura firme, alça de ombro reforçada, bolso interno com zíper.", price:189.90, img:"https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=800&auto=format&fit=crop", sizes:["Único"], badge:"Novidade" },
+    { id:"bl2", name:"Mini Bag Corrente Dourada", desc:"Bolsa pequena em couro sintético com alça de corrente removível.", price:99.90, img:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=800&auto=format&fit=crop", sizes:["Único"] },
+    { id:"bl3", name:"Bolsa Transversal Preta", desc:"Modelo compacto, ideal para o dia a dia, alça ajustável.", price:79.90, img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800&auto=format&fit=crop", sizes:["Único"] },
+    { id:"bl4", name:"Clutch Festa Nude", desc:"Clutch estruturada com detalhe metálico, ideal para eventos.", price:69.90, img:"https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=800&auto=format&fit=crop", sizes:["Único"] },
+    { id:"bl5", name:"Bolsa Balde Bege", desc:"Formato balde com cordão duplo e forro interno amplo.", price:159.90, img:"https://images.unsplash.com/photo-1614179689702-355944cd0918?q=80&w=800&auto=format&fit=crop", sizes:["Único"] }
+  ],
+  sexshop: [
+    { id:"sx1", name:"Kit Boas Vindas Casal", desc:"Kit com óleo de massagem, vela aromática e acessório de plumas.", price:119.90, img:"https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=800&auto=format&fit=crop", sizes:["Único"], badge:"Kit" },
+    { id:"sx2", name:"Óleo Massagem Beijável", desc:"Óleo comestível sabor morango, 100ml, embalagem discreta.", price:39.90, img:"https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=800&auto=format&fit=crop", sizes:["100ml"] },
+    { id:"sx3", name:"Algemas Cetim", desc:"Algemas de pelúcia com fecho rápido, confortáveis e resistentes.", price:34.90, img:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800&auto=format&fit=crop", sizes:["Único"] },
+    { id:"sx4", name:"Vela de Massagem Aromática", desc:"Vela que vira óleo morno ao derreter, aroma baunilha.", price:44.90, img:"https://images.unsplash.com/photo-1602523961358-f9f03dd557db?q=80&w=800&auto=format&fit=crop", sizes:["Único"] },
+    { id:"sx5", name:"Plumas Sensoriais", desc:"Acessório de plumas para brincadeiras sensoriais, cabo emborrachado.", price:29.90, img:"https://images.unsplash.com/photo-1636622433525-127f45a64ac0?q=80&w=800&auto=format&fit=crop", sizes:["Único"] }
+  ]
+};
+
+const CATEGORY_LABELS = {
+  lingerie: { title:"Lingerie", sub:"Peças em renda e tecidos nobres, para todos os momentos" },
+  bolsas: { title:"Bolsas", sub:"Modelos versáteis para compor qualquer look" },
+  sexshop: { title:"Sex Shop", sub:"Produtos discretos para casais, envio 100% sigiloso" }
+};
+
+/* ============ STATE ============ */
+let currentCat = "lingerie";
+let cart = []; // {productId, cat, size, qty}
+
+function findProduct(cat, id){
+  return PRODUCTS[cat].find(p => p.id === id);
+}
+
+function fmtPrice(v){
+  return "R$ " + v.toFixed(2).replace(".", ",");
+}
+
+/* ============ RENDER GRID ============ */
+function renderGrid(){
+  const grid = document.getElementById('grid');
+  const intro = document.getElementById('section-intro');
+  const label = CATEGORY_LABELS[currentCat];
+  intro.innerHTML = `<h2>${label.title}</h2><p>${label.sub}</p>`;
+
+  grid.innerHTML = "";
+  PRODUCTS[currentCat].forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const sizeInputs = p.sizes.map((s,i) => `
+      <label>
+        <input type="radio" name="size-${p.id}" value="${s}" ${i===0 ? 'checked':''}>
+        <span>${s}</span>
+      </label>
+    `).join("");
+
+    card.innerHTML = `
+      <div class="img-wrap">
+        ${p.badge ? `<div class="badge">${p.badge}</div>` : ""}
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+      </div>
+      <div class="info">
+        <h3>${p.name}</h3>
+        <div class="desc">${p.desc}</div>
+        <div class="price">${fmtPrice(p.price)}</div>
+        <div class="size-row" data-product="${p.id}">${sizeInputs}</div>
+        <div class="qty-row">
+          <button class="qty-minus" type="button">−</button>
+          <span class="qty-val">1</span>
+          <button class="qty-plus" type="button">+</button>
+        </div>
+        <button class="add-btn" type="button">Adicionar à sacola</button>
+      </div>
+    `;
+
+    // qty controls
+    let qty = 1;
+    const qtyVal = card.querySelector('.qty-val');
+    card.querySelector('.qty-minus').addEventListener('click', () => {
+      qty = Math.max(1, qty - 1);
+      qtyVal.textContent = qty;
+    });
+    card.querySelector('.qty-plus').addEventListener('click', () => {
+      qty = Math.min(20, qty + 1);
+      qtyVal.textContent = qty;
+    });
+
+    // add to cart
+    const addBtn = card.querySelector('.add-btn');
+    addBtn.addEventListener('click', () => {
+      const sizeChecked = card.querySelector(`input[name="size-${p.id}"]:checked`);
+      const size = sizeChecked ? sizeChecked.value : p.sizes[0];
+      addToCart(currentCat, p.id, size, qty);
+      addBtn.textContent = "Adicionado ✓";
+      addBtn.classList.add('added');
+      setTimeout(() => {
+        addBtn.textContent = "Adicionar à sacola";
+        addBtn.classList.remove('added');
+      }, 1200);
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+/* ============ CART LOGIC ============ */
+function addToCart(cat, productId, size, qty){
+  const existing = cart.find(it => it.cat===cat && it.productId===productId && it.size===size);
+  if(existing){
+    existing.qty += qty;
+  } else {
+    cart.push({ cat, productId, size, qty });
+  }
+  renderCart();
+}
+
+function removeFromCart(index){
+  cart.splice(index, 1);
+  renderCart();
+}
+
+function renderCart(){
+  const itemsWrap = document.getElementById('drawerItems');
+  const countEl = document.getElementById('cartCount');
+  const totalEl = document.getElementById('totalAmt');
+
+  const totalQty = cart.reduce((s,it) => s + it.qty, 0);
+  countEl.textContent = totalQty;
+
+  if(cart.length === 0){
+    itemsWrap.innerHTML = `<div class="empty-cart">Sua sacola está vazia.<br>Escolha suas peças favoritas ✦</div>`;
+    totalEl.textContent = fmtPrice(0);
+    return;
+  }
+
+  let total = 0;
+  itemsWrap.innerHTML = cart.map((it, idx) => {
+    const p = findProduct(it.cat, it.productId);
+    const subtotal = p.price * it.qty;
+    total += subtotal;
+    return `
+      <div class="drawer-item">
+        <img src="${p.img}" alt="${p.name}">
+        <div class="di-info">
+          <h4>${p.name}</h4>
+          <div class="di-meta">Tam: ${it.size} · Qtd: ${it.qty}</div>
+          <div class="di-price">${fmtPrice(subtotal)}</div>
+          <button class="remove" data-idx="${idx}">remover</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  totalEl.textContent = fmtPrice(total);
+
+  itemsWrap.querySelectorAll('.remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      removeFromCart(parseInt(btn.dataset.idx));
+    });
+  });
+}
+
+/* ============ TABS ============ */
+document.getElementById('tabs').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-cat]');
+  if(!btn) return;
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = btn.dataset.cat;
+  renderGrid();
+  window.scrollTo({top: document.getElementById('tabs').offsetTop, behavior:'smooth'});
+});
+
+/* ============ DRAWER OPEN/CLOSE ============ */
+const drawer = document.getElementById('drawer');
+const overlay = document.getElementById('overlay');
+
+function openDrawer(){
+  drawer.classList.add('open');
+  overlay.classList.add('open');
+}
+function closeDrawerFn(){
+  drawer.classList.remove('open');
+  overlay.classList.remove('open');
+}
+
+document.getElementById('cartFab').addEventListener('click', openDrawer);
+document.getElementById('closeDrawer').addEventListener('click', closeDrawerFn);
+overlay.addEventListener('click', closeDrawerFn);
+
+/* ============ CHECKOUT (WHATSAPP) ============ */
+document.getElementById('checkoutBtn').addEventListener('click', () => {
+  if(cart.length === 0){
+    alert("Sua sacola está vazia. Adicione algum item antes de finalizar.");
+    return;
+  }
+  let msg = "Olá! Gostaria de fazer o seguinte pedido:\n\n";
+  let total = 0;
+  cart.forEach(it => {
+    const p = findProduct(it.cat, it.productId);
+    const subtotal = p.price * it.qty;
+    total += subtotal;
+    msg += `• ${p.name} — Tam: ${it.size} — Qtd: ${it.qty} — ${fmtPrice(subtotal)}\n`;
+  });
+  msg += `\nTotal: ${fmtPrice(total)}`;
+
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+});
+
+/* ============ INIT ============ */
+renderGrid();
+renderCart();
+</script>
+
+</body>
+</html>
